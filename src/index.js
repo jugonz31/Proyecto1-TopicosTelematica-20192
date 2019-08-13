@@ -63,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Rutas
-app.use('/api/tasks', require('./routes/tweets.routes'))
+app.use('/api/tweets', require('./routes/tweets.routes'))
 
 //Archivos estaticos (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')))

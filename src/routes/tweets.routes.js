@@ -15,7 +15,8 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req,res) => {
     const {message, username} = req.body;
-    const tweet = new Tweet ({message, username });
+    const date = Date.now();
+    const tweet = new Tweet ({message, username, date});
     await tweet.save();     
     res.json({status: 'Tweet saved'});
 })
