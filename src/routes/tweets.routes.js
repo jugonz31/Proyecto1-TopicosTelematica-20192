@@ -13,6 +13,11 @@ router.get('/:id', async (req, res) => {
     res.json(tweet);
 })
 
+router.get('/:username', async (req, res) => {
+    const tweet = await Tweet.findBy(req.params.username);
+    res.json(tweet);
+})
+
 router.post('/', async (req,res) => {
     const {message, username} = req.body;
     const date = Date.now();

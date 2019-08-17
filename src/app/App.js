@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import Nav from './components/Nav';
 import TweetCard from './components/TweetCard'
+import Login from './components/Login'
+import Logout from './components/Logout'
+import MyTweets from './components/MyTweets'
+import Register from './components/Register'
+import { Switch, Route } from "react-router-dom";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       message: '',
-      username: '@juan',
+      username: 'juan',
       tweets: [],
+      mytweets: [],
       _id: ''
     }
     this.agregarTweet = this.agregarTweet.bind(this);
@@ -21,8 +27,8 @@ class App extends Component {
   }
 
   agregarTweet(e) {
-    if(this.state._id){
-      fetch('/api/tweets/'+this.state._id, {
+    if (this.state._id) {
+      fetch('/api/tweets/' + this.state._id, {
         method: 'PUT',
         body: JSON.stringify(this.state),
         headers: {
@@ -30,7 +36,7 @@ class App extends Component {
           'Content-Type': 'application/json'
         }
       }).then(res => res.json())
-      .then(data => console.log(data))
+        .then(data => console.log(data))
     } else {
       fetch('/api/tweets', {
         method: 'POST',
@@ -97,30 +103,41 @@ class App extends Component {
 
         <Nav />
 
-        <div className="container"
-          style={{
-            backgroundColor: "gainsboro",
-            paddingBottom: 55, borderRadius: 10, width: "90%"
-          }}>
-          <hr />
-          <form onSubmit={this.agregarTweet}>
-            <div className="form-group">
-              <label for="message">Escribe tu mensaje</label>
-              <input type="text" className="form-control" id="message" onChange={this.handleChange} aria-describedby="emailHelp" placeholder="Mensaje" value={this.state.message}/>
-              <small id="topicHelp" className="form-text text-muted">Puedes incluir un tema usando #Tema.</small>
+        <Switch>
+          <Route exact path="/">
+            <div className="container"
+              style={{
+                backgroundColor: "gainsboro",
+                paddingBottom: 55, borderRadius: 10, width: "90%"
+              }}>
+              <hr />
+              <form onSubmit={this.agregarTweet}>
+                <div className="form-group">
+                  <label for="message">Escribe tu mensaje</label>
+                  <input type="text" className="form-control" id="message" onChange={this.handleChange} aria-describedby="emailHelp" placeholder="Mensaje" value={this.state.message} />
+                  <small id="topicHelp" className="form-text text-muted">Puedes incluir un tema usando #Tema.</small>
+                </div>
+                <button type="submit" className="btn btn-dark float-right">Enviar</button>
+              </form>
             </div>
-            <button type="submit" className="btn btn-dark float-right">Enviar</button>
-          </form>
-        </div>
 
-        <div className="container">
-          <hr />
-          {this.state.tweets.map(tweet => {
-            return (
-              <TweetCard id={tweet._id} username={tweet.username} date={tweet.date} message={tweet.message} eliminarTweet={this.eliminarTweet} editarTweet={this.editarTweet} />
-            )
-          })}
-        </div>
+            <div className="container">
+              <hr />
+              {this.state.tweets.map(tweet => {
+                return (
+                  <TweetCard id={tweet._id} username={tweet.username} date={tweet.date} message={tweet.message} eliminarTweet={this.eliminarTweet} editarTweet={this.editarTweet} />
+                )
+              })}
+            </div>
+          </Route>
+          
+          <Route path="/login" component={Login}/>
+          <Route path="/my-tweets" component={MyTweets}/>
+          <Route path="/logout" component={Logout}/>
+          <Route path="/register" component={Register}/>
+        </Switch>
+
+
 
       </div>
     );
