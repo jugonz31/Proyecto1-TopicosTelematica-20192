@@ -65,7 +65,7 @@ class App extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then(res => res.json)
+      }).then(res => res.json())
         .then(data => {
           console.log(data)
           this.obtenerTweets;
@@ -76,13 +76,10 @@ class App extends Component {
 
   editarTweet(id) {
     fetch('/api/tweets/' + id)
-      .then(res => res.json)
+      .then(res => res.json())
       .then(data => {
-        this.setState({
-          message: data.message,
-          username: data.username,
-          _id: data._id
-        })
+        console.log(data);
+        this.setState({ message: data.message, username: data.username, _id: data._id });
         this.obtenerTweets;
       })
   }
@@ -109,7 +106,7 @@ class App extends Component {
           <form onSubmit={this.agregarTweet}>
             <div className="form-group">
               <label for="message">Escribe tu mensaje</label>
-              <input type="text" className="form-control" id="message" onChange={this.handleChange} aria-describedby="emailHelp" placeholder="Mensaje" />
+              <input type="text" className="form-control" id="message" onChange={this.handleChange} aria-describedby="emailHelp" placeholder="Mensaje" value={this.state.message}/>
               <small id="topicHelp" className="form-text text-muted">Puedes incluir un tema usando #Tema.</small>
             </div>
             <button type="submit" className="btn btn-dark float-right">Enviar</button>
