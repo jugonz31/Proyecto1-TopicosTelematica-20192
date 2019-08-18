@@ -75,7 +75,6 @@ app.post('/user/register', function (req, res) {
 
     if (password == password2) {
         var newUser = new User({
-            name: req.body.name,
             username: req.body.username,
             password: req.body.password
         });

@@ -5,12 +5,10 @@ var bcrypt = require('bcryptjs');
 var UserSchema = mongoose.Schema({
   username: {
     type: String,
-    index:true
+    unique: true,
+    index: true
   },
   password: {
-    type: String
-  },
-  name: {
     type: String
   }
 });

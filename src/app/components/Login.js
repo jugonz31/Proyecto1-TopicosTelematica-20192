@@ -25,8 +25,7 @@ class Login extends Component {
         this.setState({ username: '', password: '' })
         window.location.replace("/")
       })
-      .catch(err => console.log(err));
-      
+      .catch(err => alert("Credenciales incorrectas"));
   }
 
   handleChange(e) {
@@ -48,8 +47,8 @@ class Login extends Component {
         <form onSubmit={this.loginUser}>
           <div className="form-group">
             <label for="message">Ingresa</label>
-            <input id="username" type="text" className="form-control"  onChange={this.handleChange} placeholder="Usuario" />
-            <input id="password" type="password" className="form-control"  onChange={this.handleChange} placeholder="Contraseña" />
+            <input id="username" type="text" className="form-control mb-2"  onChange={this.handleChange} placeholder="Usuario" />
+            <input id="password" type="password" className="form-control mb-2"  onChange={this.handleChange} placeholder="Contraseña" />
           </div>
           <button type="submit" className="btn btn-dark float-right">Ingresar</button>
         </form>

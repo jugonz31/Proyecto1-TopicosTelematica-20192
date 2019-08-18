@@ -52,6 +52,7 @@ class App extends Component {
         .then(data => {
           console.log(data)
           this.setState({ message: '', username: '' })
+          window.location.reload();
         })
         .catch(err => console.log(err));
     }
