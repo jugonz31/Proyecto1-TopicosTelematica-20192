@@ -69,7 +69,7 @@ app.use('/api/tweets', require('./routes/tweets.routes'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // Register User
-app.post('user/register', function (req, res) {
+app.post('/user/register', function (req, res) {
     var password = req.body.password;
     var password2 = req.body.password2;
 
@@ -90,7 +90,7 @@ app.post('user/register', function (req, res) {
 });
 
 // Endpoint to login
-app.post('user/login',
+app.post('/user/login',
     passport.authenticate('local'),
     function (req, res) {
         res.send(req.user);
@@ -98,13 +98,13 @@ app.post('user/login',
 );
 
 // Endpoint to get current user
-app.get('user/profile', function (req, res) {
+app.get('/user/profile', function (req, res) {
     res.send(req.user);
 })
 
 
 // Endpoint to logout
-app.get('user/logout', function (req, res) {
+app.get('/user/logout', function (req, res) {
     req.logout();
     res.send(null)
 });
