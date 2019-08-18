@@ -26,7 +26,7 @@ class Nav extends Component {
                                 <Link to="/register">Register</Link>
                             </li>
                             <li className="nav-item mr-2">
-                                <Link to="/my-tweets">My Tweets</Link>
+                                <Link to="/all-tweets">All Tweets</Link>
                             </li>
                         </ul>
                         <form className="form-inline my-2 my-lg-0">

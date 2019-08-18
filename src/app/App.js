@@ -3,7 +3,7 @@ import Nav from './components/Nav';
 import TweetCard from './components/TweetCard'
 import Login from './components/Login'
 import Logout from './components/Logout'
-import MyTweets from './components/MyTweets'
+import AllTweets from './components/AllTweets'
 import Register from './components/Register'
 import { Switch, Route } from "react-router-dom";
 
@@ -12,7 +12,7 @@ class App extends Component {
     super();
     this.state = {
       message: '',
-      username: 'juan',
+      username: '',
       tweets: [],
       mytweets: [],
       _id: ''
@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.obtenerTweets();
+    this.obtenerUsuario();
   }
 
   agregarTweet(e) {
@@ -36,7 +36,10 @@ class App extends Component {
           'Content-Type': 'application/json'
         }
       }).then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+          console.log(data)
+          window.location.reload();
+        })
     } else {
       fetch('/api/tweets', {
         method: 'POST',
@@ -54,8 +57,18 @@ class App extends Component {
     }
   }
 
+  obtenerUsuario() {
+    fetch('user/profile')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ username: data.username })
+        console.log(data.username)
+      })
+      .then(() => this.obtenerTweets());
+  }
+
   obtenerTweets() {
-    fetch('api/tweets')
+    fetch('api/tweets?username=' + this.state.username)
       .then(res => res.json())
       .then(data => {
         this.setState({ tweets: data })
@@ -86,8 +99,8 @@ class App extends Component {
       .then(data => {
         console.log(data);
         this.setState({ message: data.message, username: data.username, _id: data._id });
-        this.obtenerTweets;
       })
+      
   }
 
   handleChange(e) {
@@ -130,11 +143,10 @@ class App extends Component {
               })}
             </div>
           </Route>
-          
-          <Route path="/login" component={Login}/>
-          <Route path="/my-tweets" component={MyTweets}/>
-          <Route path="/logout" component={Logout}/>
-          <Route path="/register" component={Register}/>
+          <Route path="/login" component={Login} />
+          <Route path="/all-tweets" component={AllTweets} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/register" component={Register} />
         </Switch>
 
 
