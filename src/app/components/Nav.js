@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+
 class Nav extends Component {
+    constructor() {
+        super();
+        this.state = {
+            loggedIn : false
+        }
+    }
+
+    componentDidMount() {
+        fetch('user/profile')
+            .then(res => res.json())
+            .then(data => {
+                if (data != "") {
+                    this.setState({
+                        loggedIn : true
+                    })
+                }
+            })
+        console.log(this.state.loggedIn);
+    }
+
     render() {
         return (
             <div>
@@ -16,18 +37,25 @@ class Nav extends Component {
                             <li className="nav-item mr-2">
                                 <Link to="/">Home</Link>
                             </li>
-                            <li className="nav-item mr-2">
-                                <Link to="/login">Login</Link>
-                            </li>
-                            <li className="nav-item mr-2">
-                                <Link to="/logout">Logout</Link>
-                            </li>
-                            <li className="nav-item mr-2">
-                                <Link to="/register">Register</Link>
-                            </li>
-                            <li className="nav-item mr-2">
-                                <Link to="/my-tweets">My Tweets</Link>
-                            </li>
+                            {this.state.loggedIn ?
+                                <div>
+                                    <li className="nav-item mr-2">
+                                        <Link to="/logout">Logout</Link>
+                                    </li>
+                                    <li className="nav-item mr-2">
+                                        <Link to="/my-tweets">My Tweets</Link>
+                                    </li>
+                                </div> : <div>
+                                    <li className="nav-item mr-2">
+                                        <Link to="/login">Login</Link>
+                                    </li>
+
+                                    <li className="nav-item mr-2">
+                                        <Link to="/register">Register</Link>
+                                    </li></div>}
+
+
+
                         </ul>
                     </div>
                 </nav>
