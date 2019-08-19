@@ -13,9 +13,14 @@ router.get('/:id', async (req, res) => {
     res.json(tweet);
 })
 
-router.get('/:username', async (req, res) => {
-    const tweet = await Tweet.findBy(req.params.username);
+router.get('/username/:username', async (req, res) => {
+    const tweet = await Tweet.find({username: req.params.username});
     res.json(tweet);
+})
+
+router.get('/topic/:message', async (req, res) => {
+    const tweet = await Tweet.find({message : {$regex : '.*' + '#' + req.params.message + '.*'}});
+    res.json(tweet)
 })
 
 router.post('/', async (req,res) => {

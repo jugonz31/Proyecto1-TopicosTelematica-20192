@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URI = 'mongodb://localhost/mern-tweeter'
+const URI = 'mongodb://localhost/proyecto1'
 
 mongoose.connect(URI)
 .then(db => console.log('DB conectada'))

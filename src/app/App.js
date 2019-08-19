@@ -64,12 +64,13 @@ class App extends Component {
       .then(data => {
         this.setState({ username: data.username })
         console.log(data.username)
+        console.log(this.state.username)
       })
       .then(() => this.obtenerTweets());
   }
 
   obtenerTweets() {
-    fetch('api/tweets?username=' + this.state.username)
+    fetch('api/tweets/username/' + this.state.username)
       .then(res => res.json())
       .then(data => {
         this.setState({ tweets: data })
@@ -118,7 +119,7 @@ class App extends Component {
         <Nav />
 
         <Switch>
-          <Route exact path="/">
+          <Route path="/my-tweets">
             <div className="container"
               style={{
                 backgroundColor: "gainsboro",
@@ -145,7 +146,7 @@ class App extends Component {
             </div>
           </Route>
           <Route path="/login" component={Login} />
-          <Route path="/all-tweets" component={AllTweets} />
+          <Route exact path="/" component={AllTweets} />
           <Route path="/logout" component={Logout} />
           <Route path="/register" component={Register} />
         </Switch>

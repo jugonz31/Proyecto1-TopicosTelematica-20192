@@ -26,13 +26,9 @@ class Nav extends Component {
                                 <Link to="/register">Register</Link>
                             </li>
                             <li className="nav-item mr-2">
-                                <Link to="/all-tweets">All Tweets</Link>
+                                <Link to="/my-tweets">My Tweets</Link>
                             </li>
                         </ul>
-                        <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="search" placeholder="#Tema" aria-label="Search" />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                        </form>
                     </div>
                 </nav>
             </div>
